@@ -1,0 +1,20 @@
+Find/Replace in *.java:
+
+1. Find: public native Boolean equals(Object 
+Replace: public native boolean equals(Object 
+
+2. Find: public native Number hashCode();
+Replace: public native int hashCode();
+
+3. Removing excessive comments
+
+Find: /\*\*[^/]+?source \: tests/jsjoda/tsd/.+?\*/
+Replace: 
+
+Find: /\*\*[^/]+? tests/jsjoda/tsd/.+?\*/
+Replace: 
+
+Option ". matches newline" must be checked!
+
+4. Find: native Number
+Replace: native double

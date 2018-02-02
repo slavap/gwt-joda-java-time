@@ -1,0 +1,10 @@
+{
+    "sourceRootDir": "./tests/jsjoda/tsd",
+    "baseJavaPackage": "java.time",
+    "defaultJavaPackage": "browser",
+    "javaPackages": {
+	  "tests/jsjoda/": "JSJoda"
+	},
+    "processInternalTypes": false,
+    "outputDirectory": "./tests/jsjoda/out/src/main/java"
+}

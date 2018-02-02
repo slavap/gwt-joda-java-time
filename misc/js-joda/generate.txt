@@ -1,0 +1,5 @@
+https://github.com/ltearno/typescript2java
+
+npm install
+node_modules\.bin\tsc
+node target/main.js ts2java.jsjoda.config.json
