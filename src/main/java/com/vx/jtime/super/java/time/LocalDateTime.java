@@ -1,5 +1,6 @@
 package java.time;
 
+import java.time.format.DateTimeFormatter;
 import jsinterop.annotations.JsMethod;
 
 public class LocalDateTime {
@@ -36,6 +37,10 @@ public class LocalDateTime {
 
     public static LocalDateTime parse(String text) {
         return new LocalDateTime(java.timejs.LocalDateTime.parse(text));
+    }
+    
+    public static LocalDateTime parse(String text, DateTimeFormatter formatter) {
+        return new LocalDateTime(java.timejs.LocalDateTime.parse(text, formatter.v));
     }
     
     public static LocalDateTime now() {

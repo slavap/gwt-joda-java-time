@@ -1,5 +1,7 @@
 package java.time;
 
+import java.time.format.DateTimeFormatter;
+
 public class ZonedDateTime {
     
     final java.timejs.ZonedDateTime v;
@@ -50,6 +52,10 @@ public class ZonedDateTime {
 
     public static ZonedDateTime parse(String text) {
         return new ZonedDateTime(java.timejs.ZonedDateTime.parse(text));
+    }
+    
+    public static ZonedDateTime parse(String text, DateTimeFormatter formatter) {
+        return new ZonedDateTime(java.timejs.ZonedDateTime.parse(text, formatter.v));
     }
 
     /*

@@ -54,10 +54,6 @@ public class LocalDateTime extends ChronoLocalDateTime
     public static native LocalDateTime ofInstant(Instant instant, ZoneId zoneId /* optional */);
 
     
-    @JsMethod(namespace="JSJoda.LocalDateTime", name = "ofYearDay")
-    public static native LocalDateTime ofYearDay(@DoNotAutobox Number year, @DoNotAutobox Number dayOfYear);
-
-    
     @JsMethod(namespace="JSJoda.LocalDateTime", name = "parse")
     public static native LocalDateTime parse(String text, DateTimeFormatter formatter /* optional */);
 

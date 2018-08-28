@@ -59,22 +59,23 @@ public class Year extends Temporal
     /*
         Methods
     */
-    public native Year atMonth(Month monthOrNumber);
-    public native Year atMonth(@DoNotAutobox Number monthOrNumber);
+    public native YearMonth atMonth(Month monthOrNumber);
+    public native YearMonth atMonth(@DoNotAutobox Number monthOrNumber);
+    public native YearMonth atMonth(UnionOfMonthAndNumber monthOrNumber);
     
-    public native Year atMonth(UnionOfMonthAndNumber monthOrNumber);
     public native Year minus(TemporalAmount amountOrNumber);
     public native Year minus(TemporalAmount amountOrNumber, TemporalUnit unit /* optional */);
     public native Year minus(@DoNotAutobox Number amountOrNumber);
     public native Year minus(@DoNotAutobox Number amountOrNumber, TemporalUnit unit /* optional */);
     public native Year minus(UnionOfNumberAndTemporalAmount amountOrNumber);
-    
     public native Year minus(UnionOfNumberAndTemporalAmount amountOrNumber, TemporalUnit unit /* optional */);
+    
     public native Year plus(TemporalAmount amountOrNumber);
     public native Year plus(TemporalAmount amountOrNumber, TemporalUnit unit /* optional */);
     public native Year plus(@DoNotAutobox Number amountOrNumber);
     public native Year plus(@DoNotAutobox Number amountOrNumber, TemporalUnit unit /* optional */);
     public native Year plus(UnionOfNumberAndTemporalAmount amountOrNumber);
-    
     public native Year plus(UnionOfNumberAndTemporalAmount amountOrNumber, TemporalUnit unit /* optional */);
+    
+    public native double value();
 }

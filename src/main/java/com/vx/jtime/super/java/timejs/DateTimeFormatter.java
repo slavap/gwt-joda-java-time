@@ -21,6 +21,16 @@ public class DateTimeFormatter
 
     @JsProperty(namespace="JSJoda.DateTimeFormatter", name="ISO_LOCAL_DATE_TIME")
     public static DateTimeFormatter ISO_LOCAL_DATE_TIME;
+    
+    @JsProperty(namespace="JSJoda.DateTimeFormatter", name="ISO_INSTANT")
+    public static DateTimeFormatter ISO_INSTANT;
+    
+    @JsProperty(namespace="JSJoda.DateTimeFormatter", name="ISO_OFFSET_DATE_TIME")
+    public static DateTimeFormatter ISO_OFFSET_DATE_TIME;
+    
+    @JsProperty(namespace="JSJoda.DateTimeFormatter", name="ISO_ZONED_DATE_TIME")
+    public static DateTimeFormatter ISO_ZONED_DATE_TIME;
+
 
     /*
         Static methods

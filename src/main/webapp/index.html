@@ -1,0 +1,86 @@
+<!doctype html>
+
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- meta http-equiv="content-type" content="text/html; charset=UTF-8"-->
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimal-ui, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+    <!-- meta name="gwt:property" content="locale=ru" -->
+
+    <!-- iPad related settings: https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- --------------------- -->
+
+    <!-- Android/Chrome -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <!-- --------------------- -->
+
+    <title>gwt-joda-java-time</title>
+
+    <script src="js/js-joda.min.js"></script>
+    <script src="js/js-joda-timezone.min.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="js/moment-timezone.min.js"></script>
+
+    <style>
+    
+    </style>
+
+  </head>
+
+  <body>
+    <div id="results"></div>
+    <p></p>
+    <div id="resultsGwt"></div>
+    
+    <!-- OPTIONAL: include this if you want history support -->
+    <iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1' style="position: absolute; width: 0; height: 0; border: 0;"></iframe>
+
+    <!-- RECOMMENDED if your web app will not function without JavaScript enabled -->
+    <noscript>
+      <div style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif;">
+        Your web browser must have JavaScript enabled in order for this application to display correctly.
+      </div>
+    </noscript>
+    
+    <script type="text/javascript">
+      var testGwtJodaJavaTime = true;
+
+      moment.tz.load(JSJoda.ZoneRulesProvider.getTzdbData());
+      
+      
+      var millis19510404 = -591548400000; // Wed Apr 04 1951 01:00:00 GMT-0800
+      var millis19510501 = -589219200000; // Tue May 01 1951 01:00:00 GMT-0700
+      var d0404 = new Date(millis19510404);
+      var d0501 = new Date(millis19510501);
+      
+      var s0a = moment.tz("1951-04-04T01:00", "America/Los_Angeles").format();
+      var s0b = moment.tz("1951-05-01T01:00", "America/Los_Angeles").format();
+      
+      var s1a = JSJoda.LocalDateTime.parse('1951-04-04T01:00').atZone(JSJoda.ZoneId.of('America/Los_Angeles')).toString();
+      var s1b = JSJoda.LocalDateTime.parse('1951-05-01T01:00').atZone(JSJoda.ZoneId.of('America/Los_Angeles')).toString();
+      
+      var msg = "Example: for 1951 PST(UTC-8) -> PDT(UTC-7) was changed on Sun, Apr 29, 2:00 AM"
+    	  + "\nBut 04/04/1951 is PDT in JsDate (which is wrong) and PST in Java Date and moment.tz (which is right)."
+    	  + "\n\nExpected: 1951-04-04T01:00:00-08:00 and 1951-05-01T01:00:00-07:00" 
+    	  + "\nmoment.tz: " + s0a + " and " + s0b 
+    	  + "\nJSJodaTimezone: " + s1a + " and " + s1b 
+    	  + "\nJS Date(millis19510404): " + d0404.toString()
+    	  + "\nJS Date(millis19510501): " + d0501.toString();
+      
+      var results = document.getElementById("results");
+      if (results) {
+    	  msg = msg.replace(/\n/g, "<br>");
+    	  results.innerHTML = msg;
+      } else {
+    	  alert(msg);
+      }
+    </script>
+    
+    <script src='jtime/jtime.nocache.js'></script>
+  </body>
+</html>

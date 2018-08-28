@@ -18,6 +18,9 @@
     </properties>
 
     <build>
+      <!-- Generate compiled stuff in the folder used for development mode -->
+      <outputDirectory>${webappDirectory}/WEB-INF/classes</outputDirectory>
+      
       <plugins>
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
@@ -76,6 +79,25 @@
             <hostedWebapp>${webappDirectory}</hostedWebapp>
           </configuration>
         </plugin>
+        
+        <plugin> <!-- GWT testing, see https://stackoverflow.com/a/27730749/714136 -->
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.21.0</version>
+          <configuration>
+            <additionalClasspathElements>
+              <additionalClasspathElement>${project.build.sourceDirectory}</additionalClasspathElement>
+              <additionalClasspathElement>${project.build.testSourceDirectory}</additionalClasspathElement>
+            </additionalClasspathElements>
+            <useManifestOnlyJar>false</useManifestOnlyJar>
+            <argLine>-Xms512m -Xmx2048m</argLine>
+            <systemPropertyVariables> <!-- see https://gualtierotesta.wordpress.com/2015/11/01/tutorial-logging-during-tests/ -->
+              <org.slf4j.simpleLogger.defaultLogLevel>INFO</org.slf4j.simpleLogger.defaultLogLevel>
+              <org.slf4j.simpleLogger.showDateTime>true</org.slf4j.simpleLogger.showDateTime>
+            </systemPropertyVariables>
+          </configuration>
+        </plugin>
+        
       </plugins>
     </build>
     <dependencies>
@@ -95,6 +117,12 @@
         <artifactId>gwt-dev</artifactId>
         <version>2.8.2</version>
         <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.11</version>
+        <scope>test</scope>
       </dependency>
     </dependencies>
     
