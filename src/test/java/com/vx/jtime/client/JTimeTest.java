@@ -2,6 +2,7 @@ package com.vx.jtime.client;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -42,9 +43,16 @@ public class JTimeTest extends GWTTestCase {
                 .withZoneSameLocal(ZoneId.of("America/New_York"));
 
         assertEquals("2016-06-30T11:30+02:00[Europe/Berlin]", zdt02.toString());
-		assertEquals("2016-06-30T05:30-04:00[America/New_York]", zdt03.toString());
-		assertEquals("2016-06-30T11:30-04:00[America/New_York]", zdt04.toString());
+        assertEquals("2016-06-30T05:30-04:00[America/New_York]", zdt03.toString());
+        assertEquals("2016-06-30T11:30-04:00[America/New_York]", zdt04.toString());
         log.info("PASSED - ZonedDateTime.parse() with zones test");
+
+        ZonedDateTime zdt05 = ZonedDateTime.of(LocalDateTime.parse("2016-06-30T11:30"),
+                ZoneId.ofOffset("", ZoneOffset.ofHours(-8)));
+        ZonedDateTime zdt06 = ZonedDateTime.parse("2016-06-30T11:30-08:00");
+        assertEquals("2016-06-30T11:30-08:00", zdt05.toString());
+        assertEquals("2016-06-30T11:30-08:00", zdt06.toString());
+        log.info("PASSED - make sure OffsetDateTime.toZonedDateTime() format without IANA zone is supported");
 
 		// Test for: Fri Nov 28 1941 23:00:00 GMT+0000
         final long millis1941 = -886467600000L;
@@ -77,6 +85,7 @@ public class JTimeTest extends GWTTestCase {
     }
 
     public void testJavaTime() {
+        delayTestFinish(30000);
         // See https://stackoverflow.com/a/18930067
         final String url0 = GWT.getModuleBaseForStaticFiles() + "js/js-joda.min.js";
         final String url1 = GWT.getModuleBaseForStaticFiles() + "js/js-joda-timezone.min.js";
@@ -101,6 +110,7 @@ public class JTimeTest extends GWTTestCase {
                                 @Override
                                 public void onSuccess(Void result) {
                                     execJavaTime();
+                                    finishTest();
                                 }
                             }).inject();
                 }

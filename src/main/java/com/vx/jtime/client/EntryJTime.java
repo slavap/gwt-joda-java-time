@@ -3,6 +3,7 @@ package com.vx.jtime.client;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -127,6 +128,9 @@ public class EntryJTime implements EntryPoint {
                 .withZoneSameInstant(ZoneId.of("America/New_York"));
         ZonedDateTime zdt04 = ZonedDateTime.parse("2016-06-30T11:30+02:00[Europe/Berlin]")
                 .withZoneSameLocal(ZoneId.of("America/New_York"));
+        ZonedDateTime zdt05 = ZonedDateTime.of(LocalDateTime.parse("2016-06-30T11:30"),
+                ZoneId.ofOffset("", ZoneOffset.ofHours(-8)));
+        ZonedDateTime zdt06 = ZonedDateTime.parse("2016-06-30T11:30-08:00");
 
         if (out != null) out.log("Tests for ZonedDateTime: "
                 + "\nExpected: 2016-06-30T11:30+02:00[Europe/Berlin]"
@@ -134,7 +138,11 @@ public class EntryJTime implements EntryPoint {
                 + "\nExpected: 2016-06-30T05:30-04:00[America/New_York]"
                 + "\nActual: " + zdt03.toString()
                 + "\nExpected: 2016-06-30T11:30-04:00[America/New_York]"
-                + "\nActual: " + zdt04.toString());
+                + "\nActual: " + zdt04.toString()
+                + "\nExpected: 2016-06-30T11:30-08:00"
+                + "\nActual: " + zdt05.toString()
+                + "\nZonedDateTime.parse(\"2016-06-30T11:30-08:00\") is " + zdt06.toString()
+            );
     }
 
 }
