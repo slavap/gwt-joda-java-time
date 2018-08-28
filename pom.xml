@@ -7,7 +7,7 @@
     <name>gwt-joda-java-time</name> 
     <groupId>com.vx.jtime</groupId>
     <artifactId>gwt-joda-java-time</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     
     <description>java.time emulation for GWT based on js-joda</description>
     <packaging>jar</packaging>

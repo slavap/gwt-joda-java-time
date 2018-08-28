@@ -7,10 +7,14 @@
 ```html
 <script src="js/js-joda.min.js"></script>
 <script src="js/js-joda-timezone.min.js"></script>
-<script type="text/javascript">JSJoda.use(JSJodaTimezone);</script>
 ```
 
-Also it's possible to use the same IANA timezone database for js-joda-timezone and moment.tz, see https://github.com/js-joda/js-joda-timezone/issues/29
+Also it's possible to use the same IANA timezone database for js-joda-timezone and moment.tz
+```html
+<script src="js/moment.min.js"></script>
+<script src="js/moment-timezone.min.js"></script>
+<script type="text/javascript">moment.tz.load(JSJoda.ZoneRulesProvider.getTzdbData());</script>
+```
 
 2) Add dependency to pom.xml:
 
