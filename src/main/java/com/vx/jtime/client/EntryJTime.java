@@ -6,6 +6,7 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoField;
 import java.util.Date;
 import java.util.Set;
 
@@ -168,6 +169,24 @@ public class EntryJTime implements EntryPoint {
                 + jsd10a.getTime() +  " | " + (msec19400526Moscow - jsd10a.getTime()) / (1000 * 60) + " | " + jsd10a.getTimezoneOffset()
                 + "\n Date(40, 4, 26, 0, 0, 0).getTime() and diff with msec19400526Moscow and getTimezoneOffset(): "
                 + d10a.getTime() + " | " + (msec19400526Moscow - d10a.getTime()) / (1000 * 60) + " | " + d10a.getTimezoneOffset()
+            );
+
+        ZonedDateTime zdt20a = LocalDateTime.parse("1866-02-13T19:30").atZone(ZoneId.of("America/Juneau"));
+        ZonedDateTime zdt20e = zdt20a.plusYears(2);
+        ZonedDateTime zdt20b = LocalDateTime.parse("1899-02-13T19:30").atZone(ZoneId.of("America/Juneau"));
+        ZonedDateTime zdt20c = LocalDateTime.parse("1941-02-13T19:30").atZone(ZoneId.of("America/Juneau"));
+        ZonedDateTime zdt20d = LocalDateTime.parse("1945-02-13T19:30").atZone(ZoneId.of("America/Juneau"));
+        long msec20a = zdt20a.toInstant().toEpochMilli();
+        long msec20b = zdt20b.getLong(ChronoField.INSTANT_SECONDS) * 1000L;
+        long msec20c = zdt20c.toInstant().toEpochMilli();
+        long msec20d = zdt20d.toInstant().toEpochMilli();
+        long msec20e = zdt20e.toInstant().toEpochMilli();
+        if (out != null) out.log("Test for [America/Juneau]"
+                + "\n ZonedDateTime 1866-02-13T19:30 is " + zdt20a.toString() + "; offset: " + zdt20a.getOffset().getTotalSeconds() / 60 + "; msec: " + msec20a
+                + "\n ZonedDateTime 1866-02-13T19:30 + 2years is " + zdt20e.toString() + "; offset: " + zdt20e.getOffset().getTotalSeconds() / 60 + "; msec: " + msec20e
+                + "\n ZonedDateTime 1899-02-13T19:30 is " + zdt20b.toString() + "; offset: " + zdt20b.getOffset().getTotalSeconds() / 60 + "; msec: " + msec20b
+                + "\n ZonedDateTime 1941-02-13T19:30 is " + zdt20c.toString() + "; offset: " + zdt20c.getOffset().getTotalSeconds() / 60 + "; msec: " + msec20c
+                + "\n ZonedDateTime 1945-02-13T19:30 is " + zdt20d.toString() + "; offset: " + zdt20d.getOffset().getTotalSeconds() / 60 + "; msec: " + msec20d
             );
     }
 

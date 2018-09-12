@@ -1,6 +1,8 @@
 package java.time;
 
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoField;
+
 import jsinterop.annotations.JsMethod;
 
 public class LocalDateTime {
@@ -98,6 +100,10 @@ public class LocalDateTime {
     
     public boolean isBefore(LocalDateTime other) {
         return v.isBefore(other.v);
+    }
+    
+    public boolean isEqual(LocalDateTime other) {
+        return v.isEqual(other.v);
     }
     
     public LocalDateTime minusDays(long days) {
@@ -215,5 +221,16 @@ public class LocalDateTime {
     public int getYear() {
         return (int) v.year();
     }
+
+    public long getLong(ChronoField field) {
+        return (long) v.getLong(field.v);
+    }
     
+    public long toEpochSecond(ZoneOffset offset) {
+        return (long) v.toEpochSecond(offset.v);
+    }
+    
+    public Instant toInstant(ZoneOffset offset) {
+        return new Instant(v.toInstant(offset.v));
+    }
 }

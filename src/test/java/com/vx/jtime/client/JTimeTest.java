@@ -5,6 +5,7 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoField;
 import java.util.Date;
 import java.util.logging.Logger;
 
@@ -94,6 +95,28 @@ public class JTimeTest extends GWTTestCase {
         assertEquals(zdt10u.getOffset().getTotalSeconds() / 60, 0);
         assertEquals(zdt10r.getOffset().getTotalSeconds() / 60, 186);
         log.info("PASSED - ZonedDateTime test of Sun May 26 1940 00:00:00 GMT+0300");
+
+        ZonedDateTime zdt20a = LocalDateTime.parse("1866-02-13T19:30").atZone(ZoneId.of("America/Juneau"));
+        ZonedDateTime zdt20e = zdt20a.plusYears(2);
+        ZonedDateTime zdt20b = LocalDateTime.parse("1899-02-13T19:30").atZone(ZoneId.of("America/Juneau"));
+        ZonedDateTime zdt20c = LocalDateTime.parse("1941-02-13T19:30").atZone(ZoneId.of("America/Juneau"));
+        ZonedDateTime zdt20d = LocalDateTime.parse("1945-02-13T19:30").atZone(ZoneId.of("America/Juneau"));
+        long msec20a = zdt20a.toInstant().toEpochMilli();
+        long msec20b = zdt20b.getLong(ChronoField.INSTANT_SECONDS) * 1000L;
+        long msec20c = zdt20c.toInstant().toEpochMilli();
+        long msec20d = zdt20d.toInstant().toEpochMilli();
+        long msec20e = zdt20e.toInstant().toEpochMilli();
+
+        assertEquals(-3278089800000L, msec20a);
+        assertEquals(-3215017800000L, msec20e);
+        assertEquals(-2236710600000L, msec20b);
+        assertEquals(-911334600000L , msec20c);
+        assertEquals(-785107800000L , msec20d);
+        assertTrue(zdt20e.isAfter(zdt20a));
+        assertTrue(zdt20a.isBefore(zdt20b));
+        assertTrue(zdt20a.isEqual(LocalDateTime.parse("1866-02-13T19:30").atZone(ZoneId.of("America/Juneau"))));
+        assertTrue(zdt20a.equals (LocalDateTime.parse("1866-02-13T19:30").atZone(ZoneId.of("America/Juneau"))));
+        log.info("PASSED - ZonedDateTime test of America/Juneau");
     }
 
     public void testJavaTime() {

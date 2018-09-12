@@ -7,7 +7,7 @@ import jsinterop.annotations.JsType;
 
 @SuppressWarnings("unusable-by-js")
 @JsType(isNative=true, namespace="JSJoda", name="ChronoField")
-public class ChronoField
+public class ChronoField extends TemporalField
 {
 
     /*

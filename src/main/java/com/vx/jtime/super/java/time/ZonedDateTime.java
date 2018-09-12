@@ -1,6 +1,7 @@
 package java.time;
 
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoField;
 
 public class ZonedDateTime {
     
@@ -222,6 +223,18 @@ public class ZonedDateTime {
         return new ZoneId(v.zone());
     }
     
+    public long getLong(ChronoField field) {
+        return (long) v.getLong(field.v);
+    }
+    
+    public long toEpochSecond() {
+        return (long) v.toEpochSecond();
+    }
+    
+    public Instant toInstant() {
+        return new Instant(v.toInstant());
+    }
+    
     public String toString() {
         return v.toString();
     }
@@ -229,5 +242,17 @@ public class ZonedDateTime {
     public boolean equals(Object other) {
         if (other instanceof ZonedDateTime) return v.equals(((ZonedDateTime) other).v);
         return false;
+    }
+    
+    public boolean isAfter(ZonedDateTime other) {
+        return v.isAfter(other.v);
+    }
+    
+    public boolean isBefore(ZonedDateTime other) {
+        return v.isBefore(other.v);
+    }
+    
+    public boolean isEqual(ZonedDateTime other) {
+        return v.isEqual(other.v);
     }
 }
