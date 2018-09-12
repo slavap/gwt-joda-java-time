@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.Set;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.JsDate;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.Window;
@@ -99,7 +100,7 @@ public class EntryJTime implements EntryPoint {
         for (String j : zones) z += j + "\n";
         if (out != null) out.log(z);
 
-        String zone = Moment.tz.guess();
+        final String zone = Moment.tz.guess();
         // Example: for 1951 PST -> PDT was changed on Sun, Apr 29, 2:00 AM
         // But 04/04/1951 is PDT(-7h) in JsDate (which is wrong) and PST(-8h) in Java Date and moment.tz (which is right).
         // Wed Apr 04 1951 01:00:00 GMT-0800
@@ -142,6 +143,31 @@ public class EntryJTime implements EntryPoint {
                 + "\nExpected: 2016-06-30T11:30-08:00"
                 + "\nActual: " + zdt05.toString()
                 + "\nZonedDateTime.parse(\"2016-06-30T11:30-08:00\") is " + zdt06.toString()
+            );
+
+        final long msec19400526Moscow = -934167600000L; // Sun May 26 1940 00:00:00 GMT+0300
+        double zoneOffset10 = Moment.tz.zone(zone).utcOffset(msec19400526Moscow);
+        Date d10 = new Date(msec19400526Moscow);
+        JsDate jsd10 = JsDate.create(msec19400526Moscow);
+        JsDate jsd10a = JsDate.create(1940, 4, 26, 0, 0, 0, 0);
+        Date d10a = new Date(40, 4, 26, 0, 0, 0);
+        ZonedDateTime zdt10m = ZonedDateTime.ofInstant(Instant.ofEpochMilli(msec19400526Moscow), ZoneId.of("Europe/Moscow"));
+        ZonedDateTime zdt10u = ZonedDateTime.ofInstant(Instant.ofEpochMilli(msec19400526Moscow), ZoneId.of("UTC"));
+        ZonedDateTime zdt10r = ZonedDateTime.ofInstant(Instant.ofEpochMilli(msec19400526Moscow), ZoneId.of("Asia/Riyadh"));
+
+        if (out != null) out.log("Test for: Sun May 26 1940 00:00:00 GMT+0300 [Europe/Moscow]"
+                + "\n Browser's zone: " + zone
+                + "\n moment.tz milliseconds and offset: " + msec19400526Moscow + " | " + zoneOffset10
+                + "\n gwt-joda-java-time ZonedDateTime Moscow: " + zdt10m.toString() + "; offset: " + zdt10m.getOffset().getTotalSeconds() / 60
+                + "\n gwt-joda-java-time ZonedDateTime UTC: "    + zdt10u.toString() + "; offset: " + zdt10u.getOffset().getTotalSeconds() / 60
+                + "\n gwt-joda-java-time ZonedDateTime Riyadh: " + zdt10r.toString() + "; offset: " + zdt10r.getOffset().getTotalSeconds() / 60
+                + "\n JsDate.toUTCString() and getTimezoneOffset(): " + jsd10.toUTCString() + " | " + jsd10.getTimezoneOffset()
+                + "\n Date().toString() and toGMTString() and getTimezoneOffset(): "
+                + d10.toString() + " | " + d10.toGMTString() + " | " + d10.getTimezoneOffset()
+                + "\n JsDate(1940, 4, 26, 0, 0, 0, 0).getTime() and diff with msec19400526Moscow and and getTimezoneOffset(): "
+                + jsd10a.getTime() +  " | " + (msec19400526Moscow - jsd10a.getTime()) / (1000 * 60) + " | " + jsd10a.getTimezoneOffset()
+                + "\n Date(40, 4, 26, 0, 0, 0).getTime() and diff with msec19400526Moscow and getTimezoneOffset(): "
+                + d10a.getTime() + " | " + (msec19400526Moscow - d10a.getTime()) / (1000 * 60) + " | " + d10a.getTimezoneOffset()
             );
     }
 

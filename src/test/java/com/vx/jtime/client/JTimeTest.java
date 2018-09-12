@@ -82,6 +82,18 @@ public class JTimeTest extends GWTTestCase {
         assertEquals("1951-04-04T01:00-08:00[America/Los_Angeles]", zdt.toString());
         assertEquals(-480, zdt.getOffset().getTotalSeconds() / 60);
         log.info("PASSED - ZonedDateTime test of 04/04/1951 01:00 is PST(-8h) in Los_Angeles");
+
+        final long msec19400526Moscow = -934167600000L; // Sun May 26 1940 00:00:00 GMT+0300
+        ZonedDateTime zdt10m = ZonedDateTime.ofInstant(Instant.ofEpochMilli(msec19400526Moscow), ZoneId.of("Europe/Moscow"));
+        ZonedDateTime zdt10u = ZonedDateTime.ofInstant(Instant.ofEpochMilli(msec19400526Moscow), ZoneId.of("UTC"));
+        ZonedDateTime zdt10r = ZonedDateTime.ofInstant(Instant.ofEpochMilli(msec19400526Moscow), ZoneId.of("Asia/Riyadh"));
+        assertEquals("1940-05-26T00:00+03:00[Europe/Moscow]", zdt10m.toString());
+        assertEquals("1940-05-25T21:00Z[UTC]", zdt10u.toString());
+        assertEquals("1940-05-26T00:06:52+03:06:52[Asia/Riyadh]", zdt10r.toString());
+        assertEquals(zdt10m.getOffset().getTotalSeconds() / 60, 180);
+        assertEquals(zdt10u.getOffset().getTotalSeconds() / 60, 0);
+        assertEquals(zdt10r.getOffset().getTotalSeconds() / 60, 186);
+        log.info("PASSED - ZonedDateTime test of Sun May 26 1940 00:00:00 GMT+0300");
     }
 
     public void testJavaTime() {
