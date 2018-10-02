@@ -180,4 +180,6 @@ public class LocalDate extends ChronoLocalDate
     public native LocalDate withYear(@DoNotAutobox Number year);
     
     public native double year();
+    
+    public native String toString();
 }

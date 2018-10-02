@@ -1,6 +1,9 @@
 package com.vx.jtime.client;
+import java.time.DayOfWeek;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
@@ -117,6 +120,47 @@ public class JTimeTest extends GWTTestCase {
         assertTrue(zdt20a.isEqual(LocalDateTime.parse("1866-02-13T19:30").atZone(ZoneId.of("America/Juneau"))));
         assertTrue(zdt20a.equals (LocalDateTime.parse("1866-02-13T19:30").atZone(ZoneId.of("America/Juneau"))));
         log.info("PASSED - ZonedDateTime test of America/Juneau");
+
+
+        LocalDate ld0 = LocalDate.now();
+        LocalDate ld1 = LocalDate.now();
+        assertTrue(ld1.isEqual(ld0) || ld1.isAfter(ld0));
+
+        ld0 = LocalDate.now(ZoneId.ofOffset("", ZoneOffset.UTC));
+        ld1 = LocalDate.now(ZoneId.of("UTC"));
+        assertTrue(ld1.isEqual(ld0) || ld1.isAfter(ld0));
+
+        LocalDate ld2 = LocalDate.parse("2016-02-23");
+        LocalDate ld3 = LocalDate.of(2016, 2, 23);
+        assertTrue(ld2.isEqual(ld3));
+        LocalDate ld4 = LocalDate.of(2016, Month.FEBRUARY, 23);
+        assertTrue(ld3.isEqual(ld4));
+
+        LocalDate ld5 = LocalDate.ofEpochDay(-1);
+        assertTrue("1969-12-31".equals(ld5.toString()));
+
+        LocalDate ld6 = LocalDate.ofYearDay(2016, 42);
+        assertTrue("2016-02-11".equals(ld6.toString()));
+
+        log.info("PASSED - LocalDate tests 00");
+
+        LocalDate ld10 = LocalDate.parse("2016-12-24");
+        assertTrue("2016-12-24".equals(ld10.toString()));
+        assertTrue(24 == ld10.getDayOfMonth());
+        assertTrue(Month.DECEMBER.equals(ld10.getMonth()));
+        assertTrue(12 == ld10.getMonthValue());
+        assertTrue(2016 == ld10.getYear());
+        assertTrue(DayOfWeek.SATURDAY.equals(ld10.getDayOfWeek()));
+        assertTrue(6 == ld10.getDayOfWeek().getValue());
+        assertTrue(359 == ld10.getDayOfYear());
+        assertTrue(ld10.isLeapYear());
+        assertFalse(ld10.plusYears(1).isLeapYear());
+        assertFalse(ld10.minusDays(365L).isLeapYear());
+        assertTrue(17159 == ld10.toEpochDay());
+        assertTrue(31 == ld10.lengthOfMonth());
+        assertTrue(366 == ld10.lengthOfYear());
+
+        log.info("PASSED - LocalDate tests 01");
     }
 
     public void testJavaTime() {
